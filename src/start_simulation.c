@@ -6,7 +6,7 @@
 /*   By: sghunmin <sghunmin@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 18:55:17 by sghunmin          #+#    #+#             */
-/*   Updated: 2025/06/07 19:30:35 by sghunmin         ###   ########.fr       */
+/*   Updated: 2025/06/08 15:08:27 by sghunmin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,9 @@ void	start_simulation(t_global *g)
 		pthread_create(&waiter, NULL, &is_done_eating, g);
 	while (++i < g->philo_num)
 		pthread_create(&p[i].thread, NULL, &start_routine, &p[i]);
-	i = 0;
-	while (i < g->philo_num)
-		pthread_join(p[i++].thread, NULL);
+	i = -1;
+	while (++i < g->philo_num)
+		pthread_join(p[i].thread, NULL);
 	pthread_join(undertaker, NULL);
 	if (g->meals_num > 0)
 		pthread_join(waiter, NULL);
